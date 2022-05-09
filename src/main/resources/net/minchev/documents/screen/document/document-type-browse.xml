@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Documents"
+        focusComponent="documentTypessTable">
+    <data readOnly="true">
+        <collection id="documentTypessDc"
+                    class="net.minchev.documents.entity.DocumentType">
+            <fetchPlan extends="_base"/>
+            <loader id="documentTypessDl">
+                <query>
+                    <![CDATA[select e from DocumentType e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings auto="true"/>
+        <presentations auto="true"/>
+    </facets>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="documentTypessTable" spacing="true">
+        <filter id="filter"
+                dataLoader="documentTypessDl">
+            <properties include=".*"/>
+
+        </filter>
+        <groupTable id="documentTypessTable"
+                    width="100%"
+                    dataContainer="documentTypessDc">
+
+            <columns>
+                <column id="longName" caption="Name"/>
+                <column id="shortName" caption="short name"/>
+            </columns>
+            <simplePagination/>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

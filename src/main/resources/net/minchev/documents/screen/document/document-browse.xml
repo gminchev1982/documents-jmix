@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Documents"
+        focusComponent="documentsTable">
+    <data readOnly="true">
+        <collection id="documentsDc"
+                    class="net.minchev.documents.entity.Document">
+            <fetchPlan extends="_base" />
+            <loader id="documentsDl">
+                    <query>
+                        <![CDATA[select e from Document e order by e.date desc]]>
+                    </query>
+            </loader>
+        </collection>
+
+    </data>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings auto="true"/>
+        <presentations auto="true"/>
+    </facets>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="documentsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="documentsDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="defaultConfiguration" name="Type" default="true">
+                    <propertyFilter property="type" operation="IN_LIST"
+                                    operationEditable="true"/>
+
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="documentsTable"
+                    width="100%"
+                    dataContainer="documentsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id" caption="msg://DocumentEdit.documentId"/>
+                <column id="number" caption="msg://DocumentEdit.documentNumber"/>
+                <column id="type" caption="msg://DocumentEdit.documentType"/>
+                <column id="kind" caption="msg://DocumentEdit.documentKind"/>
+                <column id="status" caption="msg://DocumentEdit.documentStatus"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="documentsTable.create"/>
+                <button id="editBtn" action="documentsTable.edit"/>
+                <button id="removeBtn" action="documentsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

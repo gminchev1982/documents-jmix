@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://net.minchev.documents/menu.application" insertBefore="administration">
+        <item screen="User.browse" caption="msg://net.minchev.documents.screen.user/UserBrowse.caption"/>
+        <item screen="Document.browse" caption="msg://net.minchev.documents.screen.document/document.caption"/>
+        <item screen="CorrespondenceTypeBrowse.browse" caption="Correspondence Type"/>
+        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+    </menu>
+
+</menu-config>

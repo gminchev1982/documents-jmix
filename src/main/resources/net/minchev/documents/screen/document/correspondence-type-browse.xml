@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="Correspondence Type"
+        focusComponent="correspondenceTypesTable">
+    <data>
+        <collection id="correspondenceTypesDc"
+                    class="net.minchev.documents.entity.CorrespondenceType">
+            <fetchPlan extends="_base"/>
+            <loader id="correspondenceTypesDl">
+                <query>
+                    <![CDATA[select e from CorrespondenceType e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings auto="true"/>
+        <presentations auto="true"/>
+    </facets>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="correspondenceTypesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="correspondenceTypesDl">
+            <properties include=".*"/>
+
+        </filter>
+        <groupTable id="correspondenceTypesTable"
+                    width="100%"
+                    dataContainer="correspondenceTypesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id" caption="id"/>
+                <column id="longName" caption="Name"/>
+                <column id="shortName" caption="short name"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="correspondenceTypesTable.create"/>
+                <button id="editBtn" action="correspondenceTypesTable.edit"/>
+                <button id="removeBtn" action="correspondenceTypesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
